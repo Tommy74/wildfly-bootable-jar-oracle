@@ -1,10 +1,10 @@
-# Wildfly Bootable Jar connecting to Oracle Database
+# WildFly Bootable Jar connecting to Oracle Database
 
-This repo contains a working example of a Wildfly Bootable Jar that connects to an Oracle Database;
+This repo contains a working example of a WildFly Bootable Jar that connects to an Oracle Database;
 
-Wildfly Bootable Jar is an alternative to Spring Boot which uses Wildfly as the embedded server;
+WildFly Bootable Jar is an alternative to Spring Boot which uses WildFly as the embedded server;
 
-Wildfly Bootable Jar allows you to trim the server and keep just the pieces you are interested in: as we know Wildfly 
+WildFly Bootable Jar allows you to trim the server and keep just the pieces you are interested in: as we know WildFly 
 comes with a ton of features like clustering, messaging, EJBs, JBatch, Microprofile etc... and with Bootable jar you can
 keep just the pieces you need (the pieces are called layers - you can see the list of all available layers here
 https://docs.wildfly.org/23/Bootable_Guide.html#wildfly_layers);
@@ -38,9 +38,9 @@ PASSWORD: oracle
 
 ## Oracle Layers
 
-Wildfly Bootable Jar needs a couple of layers that provide:
+WildFly Bootable Jar needs a couple of layers that provide:
 - the Oracle JDBC driver 
-- the Wildfly Database connection
+- the WildFly Database connection
 
 You can obtain these layers by cloning and building the following repository:
 
@@ -53,9 +53,9 @@ mvn install -DskipTests -Denforcer.skip=true
 The repository actually provides layers for all most common databases (PostgreSQL, MySQL, etc...);
 
 
-## Wildfly Bootable Jar
+## WildFly Bootable Jar
 
-After you have a working Oracle Database and the layers to connect to it, you can create the Wildfly Bootable Jar; 
+After you have a working Oracle Database and the layers to connect to it, you can create the WildFly Bootable Jar; 
 
 You can just clone this repository and build it:
 
@@ -90,7 +90,7 @@ curl http://localhost:8080/datasource
 schema=SYSTEM
 ```
 
-## Wildfly Bootable Jar Datasource
+## WildFly Bootable Jar Datasource
 
 This paragraph gives a little explanation about what happens under the hood;
 
@@ -101,9 +101,9 @@ If you look into the `pom.xml` file you can see the two layers that allows us to
 <layer>oracle-datasource</layer>
 ```
 
-The `oracle-driver` provides the Oracle JDBC driver to the Wildfly Bootable Jar;
+The `oracle-driver` provides the Oracle JDBC driver to the WildFly Bootable Jar;
 
-The `oracle-datasource` provides a parametric connection to the Oracle Database to the Wildfly Bootable Jar; if you look
+The `oracle-datasource` provides a parametric connection to the Oracle Database to the WildFly Bootable Jar; if you look
 inside the `/standalone/configuration/standalone.xml` file inside the file `wildfly.zip` which is inside 
 `target/wildfly-bootable-jar-oracle-bootable.jar`, you find the following:
 
