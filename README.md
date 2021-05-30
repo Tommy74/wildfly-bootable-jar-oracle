@@ -134,8 +134,8 @@ inside the `/standalone/configuration/standalone.xml` file inside the file `wild
         </subsystem>
 ```
 
-this is exactly a connection to the Oracle Database which picks the database url, username and password from environment
-variables that you can set before starting the bootable jar;
+this is exactly a connection to the Oracle Database which picks the database url, username, password and JNDI name from 
+environment variables that you can set before starting the bootable jar;
 
 This is very useful because you can use the same `wildfly-bootable-jar-oracle-bootable.jar` and deploy it to your test,
 production, cloud etc... environment without recompiling it;
