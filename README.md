@@ -139,3 +139,55 @@ environment variables that you can set before starting the bootable jar;
 
 This is very useful because you can use the same `wildfly-bootable-jar-oracle-bootable.jar` and deploy it to your test,
 production, cloud etc... environment without recompiling it;
+
+# Standalone container
+
+In order to create an image that can be run with `docker` or `podman`, we are going to use as base image `docker.io/library/openjdk:11`; 
+this image contains the OpenJDK 11;
+
+Build the final image with:
+
+```shell
+podman build -t wildfly-bootable-jar-oracle-bootable .
+```
+
+Note: if you want to play with the base image and inspect its content you can run:
+
+```shell
+podman run --rm -it docker.io/library/openjdk:11 /bin/bash
+```
+
+Create a shared network:
+
+```shell
+podman network create shared
+podman network ls
+```
+
+Run the database using Podman (note we use the newly created network for interpod communication - we expose port in order to access the database and the bootable jar from out laptop):
+
+```shell
+podman pull oracleinanutshell/oracle-xe-11g:latest
+podman run -d --network=host --name oracle oracleinanutshell/oracle-xe-11g
+```
+
+Run the image with:
+
+```shell
+podman run -d --network=host --name wildfly-bootable-jar-oracle-bootable --env "ORACLE_PASSWORD=oracle" --env "ORACLE_URL=jdbc:oracle:thin:@localhost:1521:xe" --env "ORACLE_USER=system" --env "ORACLE_DATASOURCE=OracleDS" localhost/wildfly-bootable-jar-oracle-bootable
+```
+
+You can attach to the runnig container like this:
+
+```shell
+podman ps
+podman exec -it <Container ID> /bin/bash
+```
+
+Test it with:
+
+```shell
+curl http://localhost:18080/datasource
+schema=SYSTEM
+```
+
